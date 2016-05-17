@@ -1,12 +1,11 @@
 /* jshint node: true */
 
-var jsbeautify   = require('js-beautify').js_beautify;
 var merge        = require('deepmerge');
 var through      = require('through2');
 var PluginError  = require('gulp-util').PluginError;
 var detectIndent = require('detect-indent');
 
-module.exports = function (editor, jsbeautifyOptions) {
+module.exports = function (editor, serializer) {
 
   /*
    create 'editBy' function from 'editor'
@@ -26,14 +25,6 @@ module.exports = function (editor, jsbeautifyOptions) {
   else {
     throw new PluginError('gulp-json-editor', '"editor" option must be a function or object');
   }
-
-  /*
-   js-beautify option
-   */
-  jsbeautifyOptions = jsbeautifyOptions || {};
-
-  // always beautify output
-  var beautify = true;
 
   /*
    create through object and return it
@@ -56,18 +47,11 @@ module.exports = function (editor, jsbeautifyOptions) {
       // try to get current indentation
       var indent = detectIndent(file.contents.toString('utf8'));
 
-      // beautify options for this particular file
-      var beautifyOptions = merge({}, jsbeautifyOptions); // make copy
-      beautifyOptions.indent_size = beautifyOptions.indent_size || indent.amount || 2;
-      beautifyOptions.indent_char = beautifyOptions.indent_char || (indent.type === 'tab' ? '\t' : ' ');
+      // edit JSON object
+      var data = editBy(JSON.parse(file.contents.toString('utf8')));
 
-      // edit JSON object and get it as string notation
-      var json = JSON.stringify(editBy(JSON.parse(file.contents.toString('utf8'))), null, indent.indent);
-
-      // beautify JSON
-      if (beautify) {
-        json = jsbeautify(json, beautifyOptions);
-      }
+      // get string notation of edited JSON object
+      var json = serializer ? serializer(data) : JSON.stringify(data);
 
       // write it to file
       file.contents = new Buffer(json);

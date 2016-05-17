@@ -14,13 +14,13 @@ it('should modify property of JSON object (by object editor)', function(done) {
 
   stream.on('data', function(file) {
     var expected =
-      '{\n' +
-      '  "name": "test object",\n' +
-      '  "version": "2.0.0",\n' +
-      '  "nested": {\n' +
-      '    "name": "nested object",\n' +
-      '    "version": "1.0.0"\n' +
-      '  }\n' +
+      '{' +
+      '"name":"test object",' +
+      '"version":"2.0.0",' +
+      '"nested":{' +
+      '"name":"nested object",' +
+      '"version":"1.0.0"' +
+      '}' +
       '}'
     file.contents.toString().should.eql(expected);
     done();
@@ -36,14 +36,14 @@ it('should add property of JSON object (by object editor)', function(done) {
 
   stream.on('data', function(file) {
     var expected =
-      '{\n' +
-      '  "name": "test object",\n' +
-      '  "version": "1.0.0",\n' +
-      '  "nested": {\n' +
-      '    "name": "nested object",\n' +
-      '    "version": "1.0.0"\n' +
-      '  },\n' +
-      '  "description": "this is test"\n' +
+      '{' +
+      '"name":"test object",' +
+      '"version":"1.0.0",' +
+      '"nested":{' +
+      '"name":"nested object",' +
+      '"version":"1.0.0"' +
+      '},' +
+      '"description":"this is test"' +
       '}'
     file.contents.toString().should.eql(expected);
     done();
@@ -61,13 +61,13 @@ it('should modify nested property of JSON object (by object editor)', function(d
 
   stream.on('data', function(file) {
     var expected =
-      '{\n' +
-      '  "name": "test object",\n' +
-      '  "version": "1.0.0",\n' +
-      '  "nested": {\n' +
-      '    "name": "nested object",\n' +
-      '    "version": "2.0.1"\n' +
-      '  }\n' +
+      '{' +
+      '"name":"test object",' +
+      '"version":"1.0.0",' +
+      '"nested":{' +
+      '"name":"nested object",' +
+      '"version":"2.0.1"' +
+      '}' +
       '}'
     file.contents.toString().should.eql(expected);
     done();
@@ -85,14 +85,14 @@ it('should add nested property of JSON object (by object editor)', function(done
 
   stream.on('data', function(file) {
     var expected =
-      '{\n' +
-      '  "name": "test object",\n' +
-      '  "version": "1.0.0",\n' +
-      '  "nested": {\n' +
-      '    "name": "nested object",\n' +
-      '    "version": "1.0.0",\n' +
-      '    "description": "this is test for nested"\n' +
-      '  }\n' +
+      '{' +
+      '"name":"test object",' +
+      '"version":"1.0.0",' +
+      '"nested":{' +
+      '"name":"nested object",' +
+      '"version":"1.0.0",' +
+      '"description":"this is test for nested"' +
+      '}' +
       '}'
     file.contents.toString().should.eql(expected);
     done();
@@ -113,15 +113,15 @@ it('should multiple properties of JSON object (by object editor)', function(done
 
   stream.on('data', function(file) {
     var expected =
-      '{\n' +
-      '  "name": "test object",\n' +
-      '  "version": "2.0.0",\n' +
-      '  "nested": {\n' +
-      '    "name": "nested object",\n' +
-      '    "version": "2.0.1",\n' +
-      '    "description": "this is test for nested"\n' +
-      '  },\n' +
-      '  "description": "this is test"\n' +
+      '{' +
+      '"name":"test object",' +
+      '"version":"2.0.0",' +
+      '"nested":{' +
+      '"name":"nested object",' +
+      '"version":"2.0.1",' +
+      '"description":"this is test for nested"' +
+      '},' +
+      '"description":"this is test"' +
       '}'
     file.contents.toString().should.eql(expected);
     done();
